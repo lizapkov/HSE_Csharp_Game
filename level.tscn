@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=4 uid="uid://veyokj1cfylg"]
+[gd_scene load_steps=6 format=4 uid="uid://veyokj1cfylg"]
 
 [ext_resource type="PackedScene" uid="uid://cxja2qbsil6yj" path="res://player.tscn" id="1_u52ul"]
 [ext_resource type="Texture2D" uid="uid://bdulqosrv6nd2" path="res://Sprout Lands/Tilesets/Hills.png" id="2_vonw3"]
+[ext_resource type="PackedScene" uid="uid://dh1hs0suyp8l2" path="res://rabbit.tscn" id="3_oi3di"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oi3di"]
 texture = ExtResource("2_vonw3")
@@ -131,3 +132,6 @@ tile_set = SubResource("TileSet_0b4ue")
 
 [node name="Player" parent="." instance=ExtResource("1_u52ul")]
 position = Vector2(-3, -19)
+
+[node name="Rabbit" parent="." instance=ExtResource("3_oi3di")]
+position = Vector2(826, -314)
