@@ -129,7 +129,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"death",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -185,16 +185,17 @@ animations = [{
 }],
 "loop": true,
 "name": &"move",
-"speed": 13.0
+"speed": 16.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eqa7p"]
-radius = 2745.08
+radius = 1251.978
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bmu3n"]
 radius = 69.00725
 
 [node name="Rabbit" type="CharacterBody2D" node_paths=PackedStringArray("RabbitAnim")]
+disable_mode = 2
 script = ExtResource("1_msxim")
 RabbitAnim = NodePath("RabbitAnim")
 
@@ -207,7 +208,7 @@ physics_interpolation_mode = 2
 position = Vector2(3.000002, -2.999999)
 scale = Vector2(1.3066603, 0.9769417)
 sprite_frames = SubResource("SpriteFrames_bmu3n")
-animation = &"move"
+animation = &"death"
 
 [node name="Detector" type="Area2D" parent="."]
 
