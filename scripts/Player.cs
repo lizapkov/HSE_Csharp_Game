@@ -3,34 +3,77 @@ using System;
 
 public partial class Player : CharacterBody2D
 {
-	public const float Speed = 300.0f;
 	public const float JumpVelocity = -400.0f;
+	//public Timer _colorResetTimer;
 
-	public int BunnyHealth = 100;
-	private AudioStreamPlayer _musicPlayer;
-	private Godot.Label _gameEnd;
+	private static int BunnyKills = 0;
+	private int BunnyHealth = 100;
+	public int Health { get { return BunnyHealth; }}
+	public static int Kills { get { return BunnyKills; } set { BunnyKills = value; } }
+	public AudioStreamPlayer _musicPlayer;
+	public Godot.Label _hpLabel;
+	public Godot.Label _gameEnd;
+
+	public Color _colorGreen =  new Color(0, 1, 0, 1);
+	public Color _colorWhite =  new Color(1, 1, 1, 1);
+	public Color _colorYellow =  new Color(1, 1, 0, 1);
+	public Color _colorRed =  new Color(1, 0, 0, 1);
 
 	[Export] public AnimatedSprite2D Bunny;
 	[Export] public Node2D Gun;
-	
+
 	public override void _Ready()
 	{
 		_musicPlayer = GetNode<AudioStreamPlayer>($"../GameMusic");
 		_musicPlayer.ProcessMode = ProcessModeEnum.Always;
 		_gameEnd = GetNode<Godot.Label>($"./GameEnd");
+		_hpLabel = GetNode<Godot.Label>($"./LabelHP");
 		Bunny.Play("idle");
 	}
 
 	public void BunnyTakeDamage()
 	{
 		BunnyHealth = BunnyHealth - 10;
-		if (BunnyHealth == 0)
+		if (BunnyHealth <= 0)
 		{
+			BunnyHealth = 0;
 			_gameEnd.Visible = true;
 			GetTree().Paused = true;
 		}
+		UpdateHPColor();
 	}
 
+	public void BunnyHeal()
+	{
+		BunnyHealth = BunnyHealth + 10;
+		UpdateHPColor();
+	}
+	
+	private void UpdateHPColor()
+	{
+		Color targetColor;
+		
+		if (BunnyHealth > 100)
+		{
+			targetColor = _colorGreen;
+		}
+		else if (BunnyHealth >= 60)
+		{
+			targetColor = _colorWhite;
+		}
+		else if (BunnyHealth >= 30)
+		{
+			targetColor = _colorYellow;
+		}
+		else
+		{
+			targetColor = _colorRed;
+		}
+	   
+		_hpLabel.AddThemeColorOverride("font_color", targetColor);
+	}
+
+	private static float Speed = 300.0f;
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector2 velocity = Velocity;
@@ -53,11 +96,17 @@ public partial class Player : CharacterBody2D
 		{
 			Bunny.FlipH = false;
 		}
-		else {
+		else
+		{
 			Bunny.FlipH = true;
 		}
 
+		Speed = 400 - Health;
+
 		Velocity = velocity;
 		MoveAndSlide();
+
 	}
+
+
 }
