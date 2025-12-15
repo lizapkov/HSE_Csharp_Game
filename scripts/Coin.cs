@@ -1,5 +1,6 @@
 using Godot;
 
+// Author: Tyurina Z.
 public partial class Coin : Area2D
 {
 	[Export] public CoinCollector coinCollector;
@@ -14,7 +15,8 @@ public partial class Coin : Area2D
 
 	private void OnBodyEntered(Node body)
 	{
-		if (body is Player2)
+
+        if ((body is Player2) || ((GetTree().CurrentScene.SceneFilePath == "res://field.tscn") && (body is Player)))
 		{
 			coinCollector?.AddCoin();
 			QueueFree();

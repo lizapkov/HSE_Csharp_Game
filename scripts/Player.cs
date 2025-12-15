@@ -1,11 +1,12 @@
-using Godot;
+﻿using Godot;
 using System;
 using static Godot.TextServer;
 
-public partial class Player : CharacterBody2D
+// Author: Korostelev A. Reviewers: Svetlichny G., Kovaleva E., Tyurina Z.
+// Реализация класса игрока
+public partial class Player : CharacterBody2D 
 {
 	public const float JumpVelocity = -400.0f;
-	//public Timer _colorResetTimer;
 	public bool Swap = false;
 	private static int BunnyKills = 0;
 	private int BunnyHealth = 100;
@@ -18,9 +19,9 @@ public partial class Player : CharacterBody2D
 	public Button _gameRestart;
 
 
-	public Color _colorGreen =  new Color(0, 1, 0, 1);
+	public Color _colorGreen =  new Color(0, 0.6f, 0.7f, 1);
 	public Color _colorWhite =  new Color(1, 1, 1, 1);
-	public Color _colorYellow =  new Color(1, 1, 0, 1);
+	public Color _colorYellow =  new Color(1, 0.8f, 0, 1);
 	public Color _colorRed =  new Color(1, 0, 0, 1);
 
 	[Export] public AnimatedSprite2D Bunny;
@@ -81,6 +82,7 @@ public partial class Player : CharacterBody2D
 	}
 
 	private static float Speed = 300.0f;
+	// Обработка передвижения и выстрелов
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector2 velocity = Velocity;

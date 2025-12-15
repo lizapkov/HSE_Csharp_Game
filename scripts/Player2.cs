@@ -1,12 +1,14 @@
-using Godot;
+﻿using Godot;
 using System;
 
+// Author: Korostelev A.
+// Реализация второго игрока. Наследует общее поведение от Player, но изменяет передвижение и способность
 public partial class Player2 : Player
 {
-	private float Speed = 450.0f;
-	private float _dashCooldown = 0.0f;
+	[Export] public float _speed = 450.0f;
+	private float DashCooldown = 0.0f;
 	private const float DashDelay = 3.0f;
-	private const float NormalSpeed = 450.0f;
+	private const float Normal_speed = 450.0f;
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -23,14 +25,14 @@ public partial class Player2 : Player
 
 		if (direction != Vector2.Zero)
 		{
-			velocity.X = direction.X * Speed;
-			velocity.Y = direction.Y * Speed;
+			velocity.X = direction.X * _speed;
+			velocity.Y = direction.Y * _speed;
 			Bunny.Play("move");
 		}
 		else
 		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-			velocity.Y = Mathf.MoveToward(Velocity.Y, 0, Speed);
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, _speed);
+			velocity.Y = Mathf.MoveToward(Velocity.Y, 0, _speed);
 			Bunny.Play("idle");
 		}
 
@@ -43,21 +45,21 @@ public partial class Player2 : Player
 			Bunny.FlipH = true;
 		}
 
-		if (_dashCooldown > -1)
+		if (DashCooldown > -1)
 		{
-			_dashCooldown -= (float)delta;
+			DashCooldown -= (float)delta;
 		}
 
-		if (_dashCooldown <= DashDelay/2)
+		if (DashCooldown <= DashDelay/2)
 		{
-			Speed = NormalSpeed;
+			_speed = Normal_speed;
 		}
 
 
-		if (Input.IsActionPressed("dash") && (_dashCooldown <= 0))
+		if (Input.IsActionPressed("dash") && (DashCooldown <= 0))
 		{
-			Speed = NormalSpeed * 2;
-			_dashCooldown = DashDelay;
+			_speed = Normal_speed * 2;
+			DashCooldown = DashDelay;
 		}
 
 		Velocity = velocity;

@@ -1,6 +1,7 @@
 using Godot;
 using System;
 
+// Author: Korostelev A.
 public partial class GameRestart : Button
 {
 	public override void _Ready()

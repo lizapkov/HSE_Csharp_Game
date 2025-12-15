@@ -4,6 +4,7 @@ using System;
 using System.Reflection.Metadata;
 using System.Threading.Tasks;
 
+// Author: Kovaleva E. Reviewers: Korostelev A., Svetlichny G., Tyurina Z.
 public partial class Rabbit : CharacterBody2D
 {
 	public static float Speed = 100.0f;

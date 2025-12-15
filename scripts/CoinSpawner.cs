@@ -1,6 +1,7 @@
 using Godot;
 using System;
 
+//Author: Tyurina Z.
 public partial class CoinSpawner : Node2D
 {
 	[Export] public PackedScene CoinScene;

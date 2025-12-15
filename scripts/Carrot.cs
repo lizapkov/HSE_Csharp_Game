@@ -1,12 +1,15 @@
-using Godot;
+﻿using Godot;
 using System;
 
+// Author: Korostelev A.
+// Реализация игрового снаряда - морковки
 public partial class Carrot : Area2D
 {
-	[Export] public float Speed { get; set; } = 500.0f;
-	private AnimatedSprite2D BoomAnim;
-	private Rect2 gamefieldBounds = new Rect2(-2000, -2000, 5000, 5000);
-	private bool stopped = false;
+	[Export] public float _speed { get; set; } = 500.0f;
+	[Export] public AnimatedSprite2D _boomAnim;
+    [Export] public Sprite2D _noAnim;
+    private Rect2 gamefieldBounds = new Rect2(-2000, -2000, 5000, 5000);
+	private bool Stopped = false;
 
 	private Vector2 _direction = Vector2.Up;
 	public float ExplosionRadius { get; set; } = 200.0f;
@@ -14,7 +17,9 @@ public partial class Carrot : Area2D
 	public override void _Ready()
 	{
 		Connect("body_entered", new Callable(this, nameof(OnBodyEntered)));
-	}
+        _boomAnim = GetNode<AnimatedSprite2D>("BoomAnim");
+        _noAnim = GetNode<Sprite2D>("Sprite2D");
+    }
 	public void Launch(Vector2 direction, float rotation)
 	{
 		_direction.X = (float)Math.Cos(rotation);
@@ -22,11 +27,12 @@ public partial class Carrot : Area2D
 		Rotation = rotation + (float)Math.PI/2;
 	}
 
+	// Обработка полета морковки
 	public override void _Process(double delta)
 	{
-		if (!stopped)
+		if (!Stopped)
 		{
-			GlobalPosition += _direction * Speed * (float)delta;
+			GlobalPosition += _direction * _speed * (float)delta;
 		}
 
 		if (!gamefieldBounds.HasPoint(GlobalPosition))
@@ -35,6 +41,7 @@ public partial class Carrot : Area2D
 		}
 	}
 
+	// Обработка столкновений
 	private async void OnBodyEntered(Node2D body)
 	{
 		if (body is Rabbit)
@@ -46,14 +53,14 @@ public partial class Carrot : Area2D
 					enemyNode.VarDeath(GlobalPosition, ExplosionRadius);
 				}
 			}
-			BoomAnim = GetNode<AnimatedSprite2D>("BoomAnim");
-			Sprite2D NoAnim = GetNode<Sprite2D>("Sprite2D");
-			NoAnim.Visible = false;
-			BoomAnim.Play("boom");
-			BoomAnim.Visible = true;
-			stopped = true;
 
-			await ToSignal(BoomAnim, "animation_finished");
+
+			_noAnim.Visible = false;
+			_boomAnim.Play("boom");
+			_boomAnim.Visible = true;
+			Stopped = true;
+
+			await ToSignal(_boomAnim, "animation_finished");
 			QueueFree();
 		}
 	}

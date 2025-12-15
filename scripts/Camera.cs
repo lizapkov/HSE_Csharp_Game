@@ -1,10 +1,12 @@
-using Godot;
+﻿using Godot;
 using System;
 
+// Author: Korostelev A.
+// Реализация камеры
 public partial class Camera : Camera2D
 {
-	public Player _player1;
-	public Player _player2;
+	[Export] public Player _player1;
+	[Export] public Player _player2;
 
 	[Export] private float _baseZoom = 1.4f;
 	[Export] private float _zoomPerDistance = -0.00045f;
@@ -22,7 +24,7 @@ public partial class Camera : Camera2D
 		}
 	}
 
-
+	// Изменение координат и приближения камеры
 	public override void _Process(double delta)
 	{
 		Vector2 mid = (_player1.GlobalPosition + _player2.GlobalPosition) / 2;

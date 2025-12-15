@@ -1,5 +1,6 @@
 using Godot;
 
+// Author: Svetlichny G.
 public partial class Hat : Node2D
 {
 	[Export] private PackedScene _rabbitScene;

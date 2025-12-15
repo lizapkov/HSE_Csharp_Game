@@ -1,6 +1,7 @@
 using Godot;
 using System;
 
+// Author: Korostelev A.
 public partial class Menu : Node2D
 {
 

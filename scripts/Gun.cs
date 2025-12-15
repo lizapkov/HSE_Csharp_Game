@@ -1,6 +1,7 @@
 using Godot;
 using System;
 
+//Author: Svetlichny G.
 public partial class Gun : Node2D
 {
 	[Export] private Vector2 _offset = new Vector2(30, -7);

@@ -1,6 +1,7 @@
 using Godot;
 using System;
 
+//Author: Kovaleva E.
 public partial class LabelHP : Godot.Label
 
 {

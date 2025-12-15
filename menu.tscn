@@ -9,47 +9,43 @@
 script = ExtResource("1_lti8b")
 
 [node name="Play" type="Button" parent="."]
-offset_left = 693.0
-offset_top = 489.0
-offset_right = 1442.0
-offset_bottom = 841.0
-theme_override_font_sizes/font_size = 80
+offset_left = 510.0
+offset_top = 297.0
+offset_right = 858.0
+offset_bottom = 483.0
+theme_override_font_sizes/font_size = 50
 text = "Play SOLO!"
 clip_text = true
 script = ExtResource("2_mae5d")
 
 [node name="PlayDuo" type="Button" parent="."]
-offset_left = 1581.0
-offset_top = 485.0
-offset_right = 2350.0
-offset_bottom = 840.0
-theme_override_font_sizes/font_size = 80
+offset_left = 992.0
+offset_top = 300.0
+offset_right = 1372.0
+offset_bottom = 483.0
+theme_override_font_sizes/font_size = 50
 text = "Play DUO !"
 script = ExtResource("2_mae5d")
 
 [node name="Quit" type="Button" parent="."]
-offset_left = 1136.0
-offset_top = 922.0
-offset_right = 1892.0459
-offset_bottom = 1256.0
-theme_override_font_sizes/font_size = 80
+offset_left = 797.0
+offset_top = 571.0
+offset_right = 1046.0
+offset_bottom = 691.0
+theme_override_font_sizes/font_size = 50
 text = "Quit"
 script = ExtResource("2_ouk20")
 
 [node name="Tutorial" type="Label" parent="."]
-offset_left = 920.0
-offset_top = 1298.0
-offset_right = 2107.0
-offset_bottom = 1602.0
-theme_override_font_sizes/font_size = 100
-text = "Shooter: WASD + Space
-Sprinter: Arrows + Shift"
+offset_left = 650.0
+offset_top = 709.0
+offset_right = 1273.0
+offset_bottom = 858.0
+theme_override_font_sizes/font_size = 50
+text = "Player1: WASD + Space
+Player2: Arrows + Shift"
 
 [node name="BG" parent="." instance=ExtResource("4_4hy44")]
-
-[node name="Camera2D" type="Camera2D" parent="BG"]
-position = Vector2(1550, 889)
-zoom = Vector2(0.5, 0.5)
 
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="PlayDuo" to="." method="_on_play_pressed"]
