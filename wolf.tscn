@@ -182,7 +182,7 @@ animations = [{
 radius = 1232.822
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fv4gx"]
-size = Vector2(246, 115)
+size = Vector2(219, 115)
 
 [node name="Wolf" type="CharacterBody2D" node_paths=PackedStringArray("WolfAnim")]
 disable_mode = 2
@@ -210,5 +210,5 @@ shape = SubResource("CircleShape2D_fv4gx")
 [node name="Detector_BOOMW" type="Area2D" parent="."]
 
 [node name="CollisionShape2DW" type="CollisionShape2D" parent="Detector_BOOMW"]
-position = Vector2(2, 7.5)
+position = Vector2(5.5, -28)
 shape = SubResource("RectangleShape2D_fv4gx")

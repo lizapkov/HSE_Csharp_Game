@@ -10,6 +10,8 @@ public partial class GameRestart : Button
 
 	public override void _Pressed()
 	{
+		Player.ResetKills();
+		Rabbit.ResetSpeed();
 		base._Pressed();
 		GetTree().Paused = false;
 		GetTree().ReloadCurrentScene();

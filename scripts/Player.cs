@@ -1,4 +1,4 @@
-﻿using Godot;
+using Godot;
 using System;
 using static Godot.TextServer;
 
@@ -27,6 +27,7 @@ public partial class Player : CharacterBody2D
 	[Export] public AnimatedSprite2D Bunny;
 	[Export] public Node2D Gun;
 
+	// Инициализация и подключение необходимых связей
 	public override void _Ready()
 	{
 		_musicPlayer = GetNode<AudioStreamPlayer>($"../GameMusic");
@@ -38,6 +39,7 @@ public partial class Player : CharacterBody2D
 		Bunny.Play("idle");
 	}
 
+	// Получение урона
 	public void BunnyTakeDamage(int damage)
 	{
 		BunnyHealth = BunnyHealth - damage;
@@ -55,6 +57,11 @@ public partial class Player : CharacterBody2D
 	{
 		BunnyHealth = BunnyHealth + 10;
 		UpdateHPColor();
+	}
+	
+	public static void ResetKills()
+	{
+		BunnyKills = 0;
 	}
 	
 	private void UpdateHPColor()

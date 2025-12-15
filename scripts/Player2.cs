@@ -10,6 +10,7 @@ public partial class Player2 : Player
 	private const float DashDelay = 3.0f;
 	private const float Normal_speed = 450.0f;
 
+	// Обработка передвижения и взаимодействий
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector2 velocity = Velocity;

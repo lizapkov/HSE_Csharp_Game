@@ -14,6 +14,7 @@ public partial class Carrot : Area2D
 	private Vector2 _direction = Vector2.Up;
 	public float ExplosionRadius { get; set; } = 200.0f;
 
+	// Инициализация
 	public override void _Ready()
 	{
 		Connect("body_entered", new Callable(this, nameof(OnBodyEntered)));

@@ -5,8 +5,12 @@ using System.Reflection.Metadata;
 using System.Threading.Tasks;
 
 // Author: Kovaleva E. Reviewers: Korostelev A., Svetlichny G., Tyurina Z.
+/// <summary>
+/// Класс Rabbit реализует врагов - Кроликов.
+/// </summary>
 public partial class Rabbit : CharacterBody2D
 {
+	// Основные данные врага
 	public static float Speed = 100.0f;
 	public const float ExploisonRadius = 100.0f;
 	public const int ExploisonDamage = 15;
@@ -23,33 +27,43 @@ public partial class Rabbit : CharacterBody2D
 	[Export] public Player _player;
 	[Export] public Player _player2;
 
+	// Инициализирует персонажа и настраивает обработчик событий
 	public override void _Ready()
 	{
 		AddToGroup("enemies");
+
+		// Детектор обнаружения игрока
+
 		Area2D _detect = GetNode<Area2D>($"./Detector");
 		_detect.Connect(Area2D.SignalName.BodyEntered, Callable.From<Node>(OnBodyEntered));
+
+		// Детектор вхождения в поле взрыва
 
 		Area2D _detect_boom = GetNode<Area2D>($"./Detector_BOOM");
 		_detect_boom.Connect(Area2D.SignalName.BodyEntered, Callable.From<Node>(OnBoomEntered));
 
-		//Area2D _detect_player = GetNode<Area2D>($"../Player");
-		//_detect_player.Connect(Area2D.SignalName.BodyEntered, Callable.From<Node>(OnBoomEntered));
-		
+		// Находим игрока на сцене
+
 		_player = GetTree().Root.FindChild("Player", true, false) as Player;
-		///_player2 = GetTree().Root.FindChild("Player2", true, false) as Player2;
+
+		// Детектор для обработки столкновений
 
 		_collisionShape = GetNode<CollisionShape2D>($"./CollisionShape2D");
 		RabbitAnim.Play("move");
 
 		Target.Position = new Vector2(-3000, -3000);
 	}
+
+	// Обработка физики игры
 	public override void _PhysicsProcess(double delta)
 	{
 		if (isExploiding) return;
 
 		Vector2 velocity = Velocity;
-
 		Vector2 direction;
+
+		// Вычисление направления движения
+
 		direction.X = Math.Sign(Target.Position.X - this.Position.X);
 		direction.Y = Math.Sign(Target.Position.Y - this.Position.Y);
 		if ((direction != Vector2.Zero) && (chaseState))
@@ -58,7 +72,9 @@ public partial class Rabbit : CharacterBody2D
 			velocity.Y = direction.Y * Speed;
 		}
 
-		if ((direction.X< 0) || (Math.Abs(Target.Position.X - this.Position.X) < 10))
+		// Отражение спрайта, если требуется
+
+		if ((direction.X < 0) || (Math.Abs(Target.Position.X - this.Position.X) < 10))
 		{
 			RabbitAnim.FlipH = true;
 		}
@@ -71,11 +87,13 @@ public partial class Rabbit : CharacterBody2D
 		MoveAndSlide();
 	}
 
+	// Метод: вычисление расстояния до игрока
 	private double DistanceToPlayer(Player body)
 	{
 		return Math.Sqrt(Math.Pow(body.Position.X, 2) + Math.Pow(body.Position.Y, 2));
 	}
 
+	// Обработка входа тела в зону обнаружения кролика.
 	private void OnBodyEntered(Node body)
 	{
 		if (!(body is CharacterBody2D))
@@ -92,6 +110,8 @@ public partial class Rabbit : CharacterBody2D
 			}
 		}
 	}
+
+	// Обработка входа тела в зону взрыва кролика.
 	private void OnBoomEntered(Node body)
 	{
 		if (!(body is CharacterBody2D))
@@ -107,19 +127,26 @@ public partial class Rabbit : CharacterBody2D
 		}
 
 	}
-
+	// Метод гибели врага
 	public async void Death()
 	{
 		Player.Kills = Player.Kills + 1;
 		CheckKills();
+
 		RabbitAnim.Play("death");
 		GetNode<AudioStreamPlayer2D>("ShotSound").Play();
+
+		// Отключение коллизии
+
 		_collisionShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
+
 		await ToSignal(RabbitAnim, "animation_finished");
+
 		Speed += 5.0f;
 		QueueFree();
 	}
-	
+
+	// Метод проверки убитых врагов
 	private void CheckKills()
 	{
 		if (Player.Kills % 5 == 0)
@@ -132,6 +159,12 @@ public partial class Rabbit : CharacterBody2D
 		}
 	}
 
+	public static void ResetSpeed()
+	{
+		Speed = 100.0f;
+	}
+
+	// Метод гибели врага от воздействия чего-либо
 	public void VarDeath(Vector2 coord, float radius)
 	{
 		if (coord.DistanceTo(GlobalPosition) < radius)

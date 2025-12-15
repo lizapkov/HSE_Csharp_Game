@@ -2,6 +2,7 @@ using Godot;
 using System;
 
 //Author: Svetlichny G.
+//Класс оружия
 public partial class Gun : Node2D
 {
 	[Export] private Vector2 _offset = new Vector2(30, -7);
@@ -35,7 +36,7 @@ public partial class Gun : Node2D
 
 
 	}
-
+	// Реализация выстрела
 	private void Shoot()
 	{
 		if (CarrotScene != null)
@@ -47,6 +48,7 @@ public partial class Gun : Node2D
 		}
 	}
 	
+	//КД выстрела снимается, если было совершенно убийство
 	private void CheckKillsReset()
 	{
 		if (Player.Kills > _lastKills)
@@ -56,6 +58,7 @@ public partial class Gun : Node2D
 		}
 	}
 
+	//Поворот оружия относительно курсора
 	private void RotateToMouse()
 	{
 		Vector2 mousePos = GetGlobalMousePosition();
@@ -65,7 +68,7 @@ public partial class Gun : Node2D
 		float angle = Mathf.Atan2(direction.Y, direction.X);
 		
 		Rotation = angle;
-		
+		//Отзеркаливание оружия, если курсор левее игрока
 		if (mousePos.X < GetParent<Node2D>().GlobalPosition.X)
 		{
 			Scale = new Vector2(1, -1);

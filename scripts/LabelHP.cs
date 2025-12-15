@@ -1,7 +1,12 @@
-using Godot;
+﻿using Godot;
 using System;
 
-//Author: Kovaleva E.
+// Author: Kovaleva E.
+
+/// <summary>
+/// Класс LabelHP создает и выводит надпись над игроком, постоянно ее обновляя при
+/// изменении количества HP.
+/// </summary>
 public partial class LabelHP : Godot.Label
 
 {
