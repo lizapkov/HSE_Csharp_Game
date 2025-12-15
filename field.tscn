@@ -2885,6 +2885,17 @@ text = "Game over!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="GameRestart" type="Button" parent="Player"]
+process_mode = 2
+visible = false
+offset_left = -76.0
+offset_top = -117.0
+offset_right = 100.0
+offset_bottom = 50.0
+text = "Play again"
+expand_icon = true
+script = ExtResource("7_sqdb0")
+
 [node name="Rabbit" parent="." instance=ExtResource("6_pwbbp")]
 position = Vector2(-871, 416)
 
@@ -2904,27 +2915,3 @@ _rabbitScene = ExtResource("6_pwbbp")
 stream = ExtResource("9_qvwwi")
 autoplay = true
 parameters/looping = true
-
-[node name="Camera" type="Camera2D" parent="."]
-script = ExtResource("10_wg54h")
-
-[node name="CoinSpawner" type="Node2D" parent="." node_paths=PackedStringArray("coinCollector")]
-script = ExtResource("11_jwkw3")
-CoinScene = ExtResource("12_1avfc")
-coinCollector = NodePath("../CoinCollector")
-
-[node name="SpawnTimer" type="Timer" parent="CoinSpawner"]
-wait_time = 12.0
-autostart = true
-
-[node name="CoinCollector" type="Node" parent="." node_paths=PackedStringArray("coinLabel")]
-script = ExtResource("12_b2s6v")
-coinLabel = NodePath("../CanvasLayer2/CoinLabel")
-
-[node name="CanvasLayer2" type="CanvasLayer" parent="."]
-
-[node name="CoinLabel" type="Label" parent="CanvasLayer2"]
-offset_right = 40.0
-offset_bottom = 23.0
-theme_override_font_sizes/font_size = 70
-text = "Coin: 0"
