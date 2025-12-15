@@ -1,7 +1,11 @@
-using Godot;
+﻿using Godot;
 using System;
 
 //Author: Tyurina Z.
+
+/// <summary>
+/// Класс CoinSpawner рандомно спавнит монеты на поле с учетом заданного времени.
+/// </summary>
 public partial class CoinSpawner : Node2D
 {
 	[Export] public PackedScene CoinScene;

@@ -1,9 +1,10 @@
 using Godot;
 
-// Author: Svetlichny G.
+// Author: Svetlichny G. Reviewer: Kovaleva E.
 public partial class Hat : Node2D
 {
 	[Export] private PackedScene _rabbitScene;
+	[Export] private PackedScene _wolfScene;
 	[Export] private float _teleportInterval = 2.0f;
 	
 	[Export] private Vector2[] _cornerPositions = new Vector2[]
@@ -20,6 +21,7 @@ public partial class Hat : Node2D
 	
 	private Timer _teleportTimer;
 	private bool _canSpawnRabbits = false;
+	private bool _canSpawnWolfs = false;
 	private Vector2 _playerStartPosition;
 	
 	public override void _Ready()
@@ -29,7 +31,9 @@ public partial class Hat : Node2D
 		{
 			_playerStartPosition = player.GlobalPosition;
 		}
-		
+
+	   _wolfScene = ResourceLoader.Load<PackedScene>("./wolf.tscn");
+
 		MoveToRandomCorner();
 		
 		_teleportTimer = new Timer();
@@ -53,6 +57,19 @@ public partial class Hat : Node2D
 				}
 			}
 		}
+		if (!_canSpawnWolfs)
+		{
+			var player = GetNodeOrNull<CharacterBody2D>("/root/Field/Player");
+			if (player != null)
+			{
+				float distance = player.GlobalPosition.DistanceTo(_playerStartPosition);
+				if (distance > 100)
+				{
+
+					_canSpawnWolfs = true;
+				}
+			}
+		}
 	}
 	
 	private void TeleportToNewPosition()
@@ -60,10 +77,18 @@ public partial class Hat : Node2D
 		Vector2 currentPosition = GlobalPosition;
 		
 		MoveToRandomCorner();
-		
-		if (_canSpawnRabbits)
+
+		RandomNumberGenerator rng = new RandomNumberGenerator();
+		rng.Randomize();
+		int number = rng.RandiRange(1, 4); ;
+
+		if (_canSpawnRabbits && number < 4)
 		{
 			SpawnRabbitAtPosition(currentPosition);
+		}
+		else
+		{
+			SpawnWolfAtPosition(currentPosition);
 		}
 	}
 	
@@ -87,6 +112,18 @@ public partial class Hat : Node2D
 		Callable.From(() => {
 			GetParent().AddChild(rabbit);
 			rabbit.GlobalPosition = position;
+		}).CallDeferred();
+	}
+
+	private void SpawnWolfAtPosition(Vector2 position)
+	{
+		if (_wolfScene == null) return;
+
+		var wolf = _wolfScene.Instantiate<Wolf>();
+
+		Callable.From(() => {
+			GetParent().AddChild(wolf);
+			wolf.GlobalPosition = position;
 		}).CallDeferred();
 	}
 }

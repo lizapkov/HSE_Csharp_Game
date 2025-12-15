@@ -1,6 +1,11 @@
-using Godot;
+﻿using Godot;
 
 // Author: Tyurina Z.
+
+/// <summary>
+/// Класс Coin реализует собирание монет игроком.
+/// </summary>
+
 public partial class Coin : Area2D
 {
 	[Export] public CoinCollector coinCollector;

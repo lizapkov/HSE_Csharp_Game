@@ -101,7 +101,7 @@ public partial class Rabbit : CharacterBody2D
 
 		if (body is Player)
 		{
-			((Player)body).BunnyTakeDamage();
+			((Player)body).BunnyTakeDamage(10);
 			isExploiding = true;
 			Death();
 		}

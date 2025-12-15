@@ -1,6 +1,10 @@
-using Godot;
+﻿using Godot;
 
 // Author: Tyurina Z.
+
+/// <summary>
+/// Класс CoinCollector реализует подсчет собранных монет и вывод текста на экран.
+/// </summary>
 public partial class CoinCollector : Node
 {
 	[Export] public Godot.Label _coinLabel;

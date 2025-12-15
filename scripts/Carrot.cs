@@ -44,7 +44,7 @@ public partial class Carrot : Area2D
 	// Обработка столкновений
 	private async void OnBodyEntered(Node2D body)
 	{
-		if (body is Rabbit)
+		if (body is Rabbit || body is Wolf)
 		{
 			foreach (Node enemy in GetTree().GetNodesInGroup("enemies"))
 			{
@@ -52,7 +52,11 @@ public partial class Carrot : Area2D
 				{
 					enemyNode.VarDeath(GlobalPosition, ExplosionRadius);
 				}
-			}
+                if (enemy is Wolf enemyNode2)
+                {
+                    enemyNode2.VarDeath(GlobalPosition, ExplosionRadius);
+                }
+            }
 
 
 			_noAnim.Visible = false;

@@ -38,9 +38,9 @@ public partial class Player : CharacterBody2D
 		Bunny.Play("idle");
 	}
 
-	public void BunnyTakeDamage()
+	public void BunnyTakeDamage(int damage)
 	{
-		BunnyHealth = BunnyHealth - 10;
+		BunnyHealth = BunnyHealth - damage;
 		if (BunnyHealth <= 0)
 		{
 			BunnyHealth = 0;
