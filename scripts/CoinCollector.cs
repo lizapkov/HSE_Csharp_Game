@@ -2,7 +2,7 @@ using Godot;
 
 public partial class CoinCollector : Node
 {
-	[Export] public Label coinLabel;
+	[Export] public Godot.Label coinLabel;
 	private int coins = 0;
 
 	public override void _Ready()

@@ -15,6 +15,6 @@ public partial class Label : Godot.Label
 	public override void _Process(double delta)
 	{
 	
-		Text = $"HP {_player.BunnyHealth}";}
+		Text = $"HP {_player.Health}";}
 	
 }
