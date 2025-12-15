@@ -14,7 +14,7 @@ public partial class Coin : Area2D
 
 	private void OnBodyEntered(Node body)
 	{
-		if (body is Player)
+		if (body is Player2)
 		{
 			coinCollector?.AddCoin();
 			QueueFree();
